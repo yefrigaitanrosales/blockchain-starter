@@ -18,7 +18,8 @@ function provision_blockchain {
     then
         cf create-service-key ${BLOCKCHAIN_SERVICE_INSTANCE} ${BLOCKCHAIN_SERVICE_KEY}
     fi
-    cf service-key ${BLOCKCHAIN_SERVICE_INSTANCE} ${BLOCKCHAIN_SERVICE_KEY} | ( tail -n +2 > blockchain.json )
+    #(tail -n +2)
+    cf service-key ${BLOCKCHAIN_SERVICE_INSTANCE} ${BLOCKCHAIN_SERVICE_KEY} | > blockchain.json
     export BLOCKCHAIN_NETWORK_ID=$(jq --raw-output '.org1."network_id"' blockchain.json)
     export BLOCKCHAIN_KEY=$(jq --raw-output '.org1.key' blockchain.json)
     export BLOCKCHAIN_SECRET=$(jq --raw-output '.org1.secret' blockchain.json)
